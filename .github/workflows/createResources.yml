@@ -1,0 +1,59 @@
+name: Create Azure Resources
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'bicep/**/*.bicep'
+
+jobs:
+  create-azure-resources:
+
+    env:
+      DEPLOYMENT_NAME: 'srvbus-deployment'
+      LOCATION: 'canadacentral'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: deploy
+        id: createResources
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          scope: subscription
+          region: ${{ env.LOCATION }}
+          deploymentName:  ${{ env.DEPLOYMENT_NAME }}
+          template: ./bicep/main.bicep
+          parameters: location=${{ env.LOCATION }}
+      
+    #   - uses: gliech/create-github-secret-action@v1
+    #     name: Write Function Name
+    #     with:
+    #       name: FUNCTION_NAME
+    #       value: ${{ steps.createResources.outputs.functionName }}
+    #       pa_token: ${{ secrets.PA_TOKEN }}                          
+
+    #   - uses: gliech/create-github-secret-action@v1
+    #     name: Write Apim Name
+    #     with:
+    #       name: APIM_NAME
+    #       value: ${{ steps.createResources.outputs.apimName }}
+    #       pa_token: ${{ secrets.PA_TOKEN }}        
+
+    #   - uses: gliech/create-github-secret-action@v1
+    #     name: Write Resource Group Name
+    #     with:
+    #       name: RG_NAME
+    #       value: ${{ steps.createResources.outputs.rgName }}
+    #       pa_token: ${{ secrets.PA_TOKEN }}     
+
+                    
