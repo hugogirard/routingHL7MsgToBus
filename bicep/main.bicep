@@ -20,4 +20,21 @@ module servicebus 'modules/servicebus/bus.bicep' = {
   }
 }
 
+module monitoring 'modules/monitoring/insights.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'monitoring'
+  params: {
+    location: location
+    suffix: suffix
+  }
+}
 
+module function 'modules/function/function.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'function'
+  params: {
+    appInsightsName: monitoring.outputs.appInsightName
+    location: location
+    suffix: suffix
+  }
+}
