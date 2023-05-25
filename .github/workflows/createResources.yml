@@ -37,7 +37,7 @@ jobs:
 
       - name: Save routing file App Configuration
         run: |
-          az appconfig kv import --label dev --separator : --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --source file --path ./bicep/modules/ppconfiguration/routing.configuration.json --format json
+          az appconfig kv import --label dev --separator : --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --source file --path ./bicep/modules/appconfiguration/routing.configuration.json --format json
 
     #   - uses: gliech/create-github-secret-action@v1
     #     name: Write Resource Group Name
