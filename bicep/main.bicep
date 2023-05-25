@@ -38,3 +38,12 @@ module function 'modules/function/function.bicep' = {
     suffix: suffix
   }
 }
+
+module appConfiguration 'modules/appconfiguration/app.configuration.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'appconfiguration'
+  params: {
+    location: location
+    suffix: suffix
+  }
+}
