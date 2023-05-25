@@ -34,20 +34,10 @@ jobs:
           deploymentName:  ${{ env.DEPLOYMENT_NAME }}
           template: ./bicep/main.bicep
           parameters: location=${{ env.LOCATION }}
-      
-    #   - uses: gliech/create-github-secret-action@v1
-    #     name: Write Function Name
-    #     with:
-    #       name: FUNCTION_NAME
-    #       value: ${{ steps.createResources.outputs.functionName }}
-    #       pa_token: ${{ secrets.PA_TOKEN }}                          
 
-    #   - uses: gliech/create-github-secret-action@v1
-    #     name: Write Apim Name
-    #     with:
-    #       name: APIM_NAME
-    #       value: ${{ steps.createResources.outputs.apimName }}
-    #       pa_token: ${{ secrets.PA_TOKEN }}        
+      - name: Save routing file App Configuration
+        run: |
+          az appconfig kv import --label dev --separator : --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --source ./bicep/appconfiguration/routing.configuration.json
 
     #   - uses: gliech/create-github-secret-action@v1
     #     name: Write Resource Group Name

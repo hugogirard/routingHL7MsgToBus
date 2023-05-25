@@ -1,9 +1,16 @@
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace ProcessHL7Msg.Infrastructure;
 
 public class RoutingConfiguration 
 {
+
+    public RoutingConfiguration(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public string ArtifactName => Environment.GetEnvironmentVariable("Routing:ARTIFACT_NAME") ?? 
                                     throw new ArgumentException("ARTIFACT_NAME environment variable not set.");
 

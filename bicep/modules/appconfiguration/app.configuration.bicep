@@ -8,3 +8,5 @@ resource appconfiguration 'Microsoft.AppConfiguration/configurationStores@2023-0
     name: 'standard'
   }
 }
+
+output appConfigurationName string = appconfiguration.name

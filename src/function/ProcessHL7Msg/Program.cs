@@ -6,6 +6,11 @@ using Microsoft.Extensions.Hosting;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
+    .ConfigureAppConfiguration(builder => 
+    {
+        string cnxString = Environment.GetEnvironmentVariable("AppConfigurationCnxString");
+        builder.AddAzureAppConfiguration(cnxString);
+    })
     .ConfigureServices(s => 
     {
         s.AddScoped<IHL7Processor, HL7Processor>();
@@ -17,7 +22,7 @@ var host = new HostBuilder()
 
         //// Topic name
         var sender = client.CreateSender(Environment.GetEnvironmentVariable("ServiceBusTopicName"));
-        s.AddSingleton<ServiceBusSender>(sender);
+        s.AddSingleton(sender);
     })
     .Build();
 

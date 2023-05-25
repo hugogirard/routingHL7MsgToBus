@@ -47,3 +47,5 @@ module appConfiguration 'modules/appconfiguration/app.configuration.bicep' = {
     suffix: suffix
   }
 }
+
+output appConfigurationStoreName string = appConfiguration.outputs.appConfigurationName
