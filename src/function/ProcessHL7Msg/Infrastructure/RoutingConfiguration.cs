@@ -17,6 +17,7 @@ public class RoutingConfiguration
     public RoutingConfiguration(IConfiguration configuration)
     {
         _configuration = configuration;        
+        var objectArray = JsonConvert.DeserializeObject<List<HL7SegmentRouting>>(_configuration["Routing:HL7_SEGMENT_ROUTINGS"]);
     }
 
     public string ArtifactName => _configuration["Routing:ARTIFACT_NAME"] ??
@@ -35,4 +36,10 @@ public class HL7SegmentRouting
     public string SegmentName { get; set; }
 
     public int Position { get; set; }
+}
+
+public class MyObject
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
 }

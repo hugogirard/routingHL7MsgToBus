@@ -12,7 +12,7 @@ var host = new HostBuilder()
         builder.AddAzureAppConfiguration(options =>
         {
             options.Connect(cnxString)
-                   .Select("Routing:*","dev");
+                   .Select("Routing:*", "dev");
         });
     })
     .ConfigureServices(s => 
