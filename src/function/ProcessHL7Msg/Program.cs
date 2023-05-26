@@ -9,12 +9,15 @@ var host = new HostBuilder()
     .ConfigureAppConfiguration(builder => 
     {
         string cnxString = Environment.GetEnvironmentVariable("AppConfigurationCnxString");
-        builder.AddAzureAppConfiguration(cnxString);
+        builder.AddAzureAppConfiguration(options =>
+        {
+            options.Connect(cnxString)
+                   .Select("Routing:*","dev");
+        });
     })
     .ConfigureServices(s => 
     {
         s.AddScoped<IHL7Processor, HL7Processor>();
-        s.AddSingleton<RoutingConfiguration>();
         
         // Create service bus client
         var client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusFQDN"),
@@ -23,6 +26,11 @@ var host = new HostBuilder()
         //// Topic name
         var sender = client.CreateSender(Environment.GetEnvironmentVariable("ServiceBusTopicName"));
         s.AddSingleton(sender);
+
+        s.AddAzureAppConfiguration();
+        
+        s.AddSingleton<RoutingConfiguration>();
+
     })
     .Build();
 

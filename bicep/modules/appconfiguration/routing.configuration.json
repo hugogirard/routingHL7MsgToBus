@@ -1,16 +1,16 @@
 {
     "Routing": {
-        "ARTIFACT_NAME": "Contoso_Hospital_One",
+        "ARTIFACT_NAME": "RP_MLLP_VPPCerner_from_External_HL7_ALL",
         "HL7_SEGMENT_ROUTINGS": [
-            {
+          {
             "SegmentName": "MSG",
             "Position": 3
-            },
-            {
+          },
+          {
             "SegmentName": "MSG",
             "Position": 4
-            }
+          }
         ],
         "Port": 12001
-    }    
+    }
 }
