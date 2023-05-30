@@ -1,6 +1,10 @@
 {
     "Routing": {
         "ArtifactName": "Contoso_HIS",
+        "SessionField": {
+            "SegmentName": "MSG",
+            "Position": "3"
+        },
         "HL7SegmentRoutings": [
             {
                 "SegmentName": "MSH",

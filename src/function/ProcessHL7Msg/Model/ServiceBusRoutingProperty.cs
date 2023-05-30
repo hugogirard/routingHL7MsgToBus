@@ -5,4 +5,6 @@ public class ServiceBusRoutingProperty
     public string Name { get; set; }
 
     public string Value { get; set; }
+
+    public string SessionId { get; set; }
 }

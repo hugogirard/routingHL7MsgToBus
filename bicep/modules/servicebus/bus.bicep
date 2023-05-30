@@ -15,5 +15,6 @@ resource topic 'Microsoft.ServiceBus/namespaces/topics@2022-10-01-preview' = {
   name: 'integration'
   parent: namespace
   properties: {
+    requiresDuplicateDetection: true        
   }
 }

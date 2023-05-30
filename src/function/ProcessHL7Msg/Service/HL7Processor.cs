@@ -34,23 +34,32 @@ public class HL7Processor : IHL7Processor
                 continue;
 
             // Extract each field and position
-            var positions = routingSegmentsConfig.Select(s => new { s.Position, s.SubPosition }).ToList();
+            var positions = routingSegmentsConfig.Select(s => s).ToList();
 
             positions.ForEach(p => 
             {
-                string name = p.SubPosition == 0 
-                              ? $"{segmentName}.{p}"
-                              : $"{segmentName}.{p}.1";
-                string value;
-                if (p.SubPosition == 0) { }
-
-                var routingProperty = new ServiceBusRoutingProperty
+                if (p.SubPosition?.Count() == 0 || string.IsNullOrEmpty(p.SubPositionSeparator))
+                {                    
+                    routingProperties.Add(new ServiceBusRoutingProperty
+                    {
+                        Name = $"{segmentName}.{p.Position}",
+                        Value = fields[p.Position - 1]
+                    });
+                }
+                else 
                 {
-                    Name = name,
-                    Value = fields[p.Position-1]
-                };
+                    string[] subValues = fields[p.Position - 1].Split(p.SubPositionSeparator);
+                    foreach (var subPosition in p.SubPosition) 
+                    {                            
+                        routingProperties.Add(new ServiceBusRoutingProperty
+                        {
+                            Name = $"{segmentName}.{p.Position}.{subPosition}",
+                            Value = subValues[subPosition - 1]
+                        });
+                    } 
+                }
 
-                routingProperties.Add(routingProperty);
+
             });
 
         }

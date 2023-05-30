@@ -12,6 +12,7 @@ namespace Contoso
     {
         private readonly ILogger _logger;
         private readonly IHL7Processor _hl7Processor;
+        private readonly ServiceBusSender _serviceBusSender;
 
         public ProcessHL7Msg(ILoggerFactory loggerFactory, 
                              IHL7Processor hL7Processor,
@@ -19,10 +20,11 @@ namespace Contoso
         {
             _logger = loggerFactory.CreateLogger<ProcessHL7Msg>();
             _hl7Processor = hL7Processor;
+            _serviceBusSender = serviceBusSender;
         }
 
         [Function("ProcessHL7Msg")]
-        public async Task<ProcessHL7MsgOutput> Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
         {
             try
             {
@@ -38,20 +40,15 @@ namespace Contoso
                 {
                     message.ApplicationProperties.Add(property.Name, property.Value);
                 }
-
+                await _serviceBusSender.SendMessageAsync(message);
                 var response = req.CreateResponse(HttpStatusCode.OK);
-                processHL7MsgOutput.Message = message;
-                processHL7MsgOutput.Response = response;
 
-                return processHL7MsgOutput;
+                return response;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-                return new ProcessHL7MsgOutput
-                {
-                    Response = req.CreateResponse(HttpStatusCode.InternalServerError)
-                };
+                return req.CreateResponse(HttpStatusCode.InternalServerError);               
             }
 
 

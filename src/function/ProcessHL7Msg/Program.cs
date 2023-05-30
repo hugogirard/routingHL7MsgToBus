@@ -18,11 +18,14 @@ var host = new HostBuilder()
     .ConfigureServices(s => 
     {
         s.AddScoped<IHL7Processor, HL7Processor>();
-        
+        ServiceBusClient client;
+#if DEBUG
+        client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusCnxString"));
+#else
         // Create service bus client
         var client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusFQDN"),
                                           new DefaultAzureCredential());
-
+#endif
         //// Topic name
         var sender = client.CreateSender(Environment.GetEnvironmentVariable("ServiceBusTopicName"));
         s.AddSingleton(sender);

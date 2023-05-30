@@ -9,7 +9,16 @@ public class RoutingConfiguration
 
     public List<HL7SegmentRouting> HL7SegmentRoutings { get; set; } = new List<HL7SegmentRouting>();
 
+    public SesssionField SessionField { get; set; }
+
     public int Port { get; set; } = 0;
+}
+
+public class SesssionField 
+{
+    public string SegmentName { get; set; } = String.Empty;
+
+    public int Position { get; set; } = 0;
 }
 
 public class HL7SegmentRouting 
