@@ -1,6 +1,6 @@
 {
     "Routing": {
-        "ArtifactName": "RP_MLLP_VPPCerner_from_External_HL7_ALL",
+        "ArtifactName": "Contoso_HIS",
         "HL7SegmentRoutings": [
             {
                 "SegmentName": "MSH",
@@ -21,13 +21,11 @@
             {
                 "SegmentName": "MSH",
                 "Position": 9,
-                "SubPosition": 1
-            },
-            {
-                "SegmentName": "MSH",
-                "Position": 9,
-                "SubPosition": 2
-            }                           
+                "SubPosition": [
+                    1,
+                    2
+                ]
+            }                  
         ],
         "Port": 12001
     }
