@@ -12,21 +12,18 @@ public class HL7Processor : IHL7Processor
     public HL7Processor(IConfiguration configuration)
     {
         _routingConfiguration = new RoutingConfiguration();
-        configuration.GetSection("Routing").Bind(_routingConfiguration);
-
-        //string conf = "{\"ARTIFACT_NAME\":\"RP_MLLP_VPPCerner_from_External_HL7_ALL\",\"HL7_SEGMENT_ROUTINGS\":[{\"SegmentName\":\"MSG\",\"Position\":3},{\"SegmentName\":\"MSG\",\"Position\":4},{\"SegmentName\":\"MSG\",\"Position\":5},{\"SegmentName\":\"MSG\",\"Position\":6}],\"Port\":12001}";
-        //_routingConfiguration = JsonConvert.DeserializeObject<RoutingConfiguration>(conf);        
+        configuration.GetSection("Routing").Bind(_routingConfiguration);     
     }
 
     public List<ServiceBusRoutingProperty> ProcessHL7Msg(string message)
     {
         var routingProperties = new List<ServiceBusRoutingProperty>();
          
-        var segments = message.Split('|');
+        var segments = SplitSegments(message);
 
         foreach (var segment in segments)
         {
-            string[] fields = segment.Split('|');
+            var fields = SplitFields(segment);
 
             string segmentName = fields[0];
 
@@ -44,7 +41,7 @@ public class HL7Processor : IHL7Processor
                 var routingProperty = new ServiceBusRoutingProperty
                 {
                     Name = $"{segmentName}_{p}",
-                    Value = fields[p]
+                    Value = fields[p-1]
                 };
 
                 routingProperties.Add(routingProperty);
@@ -55,4 +52,19 @@ public class HL7Processor : IHL7Processor
         return routingProperties;
     }
 
+    private List<string> SplitSegments(string message) 
+    {
+        string[] separators = { "\r", "\n" };
+        string[] segmentsArray = message.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+        return new List<string>(segmentsArray);
+    }
+
+    private List<string> SplitFields(string segment) 
+    {
+        char[] separators = { '|' };
+        string[] fieldsArray = segment.Split(separators);
+        return new List<string>(fieldsArray);
+    }
 }
+
+

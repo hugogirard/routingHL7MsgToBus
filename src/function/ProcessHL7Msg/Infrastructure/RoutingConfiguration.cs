@@ -17,4 +17,6 @@ public class HL7SegmentRouting
     public string SegmentName { get; set; } = String.Empty;
 
     public int Position { get; set; } = 0;
+
+    public int SubPosition { get; set; } = 0;
 }

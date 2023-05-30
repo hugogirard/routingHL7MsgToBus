@@ -17,7 +17,17 @@
             {
                 "SegmentName": "MSH",
                 "Position": 6
-            }                
+            },
+            {
+                "SegmentName": "MSH",
+                "Position": 9,
+                "SubPosition": 1
+            },
+            {
+                "SegmentName": "MSH",
+                "Position": 9,
+                "SubPosition": 2
+            }                           
         ],
         "Port": 12001
     }
