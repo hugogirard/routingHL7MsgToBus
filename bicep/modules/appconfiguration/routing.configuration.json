@@ -24,7 +24,8 @@
                 "SubPosition": [
                     1,
                     2
-                ]
+                ],
+                "SubPositionSeparator": "^"
             }                  
         ],
         "Port": 12001

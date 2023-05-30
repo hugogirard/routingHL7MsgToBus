@@ -19,4 +19,6 @@ public class HL7SegmentRouting
     public int Position { get; set; } = 0;
 
     public int[] SubPosition { get; set; } = new int[] { };
+
+    public string SubPositionSeparator { get; set; } = string.Empty;
 }
