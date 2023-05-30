@@ -12,7 +12,7 @@ var host = new HostBuilder()
         builder.AddAzureAppConfiguration(options =>
         {
             options.Connect(cnxString)
-                   .Select("Routing:*", "dev");
+                   .Select("Routing", "Contoso_HIS");
         });
     })
     .ConfigureServices(s => 
@@ -28,9 +28,12 @@ var host = new HostBuilder()
         s.AddSingleton(sender);
 
         s.AddAzureAppConfiguration();
-        
-        s.AddSingleton<RoutingConfiguration>();
-
+                          
+    })
+    .ConfigureFunctionsWorkerDefaults(app => 
+    {
+        // Use Azure App Configuration middleware for data refresh
+        app.UseAzureAppConfiguration();
     })
     .Build();
 

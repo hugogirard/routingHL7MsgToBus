@@ -1,18 +1,24 @@
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+
 namespace ProcessHL7Msg.Service;
 
 public class HL7Processor : IHL7Processor
-{
+{    
     private readonly RoutingConfiguration _routingConfiguration;
 
-    public HL7Processor(RoutingConfiguration routingConfiguration)
+    public RoutingConfiguration GetConfiguration() => _routingConfiguration;
+
+    public HL7Processor(IConfiguration configuration)
     {
-        _routingConfiguration = routingConfiguration;
+        string conf = "{\"ARTIFACT_NAME\":\"RP_MLLP_VPPCerner_from_External_HL7_ALL\",\"HL7_SEGMENT_ROUTINGS\":[{\"SegmentName\":\"MSG\",\"Position\":3},{\"SegmentName\":\"MSG\",\"Position\":4},{\"SegmentName\":\"MSG\",\"Position\":5},{\"SegmentName\":\"MSG\",\"Position\":6}],\"Port\":12001}";
+        _routingConfiguration = JsonConvert.DeserializeObject<RoutingConfiguration>(conf);        
     }
 
     public List<ServiceBusRoutingProperty> ProcessHL7Msg(string message)
     {
         var routingProperties = new List<ServiceBusRoutingProperty>();
-
+         
         var segments = message.Split('|');
 
         foreach (var segment in segments)
