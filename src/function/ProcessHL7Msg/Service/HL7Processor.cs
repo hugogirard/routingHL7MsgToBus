@@ -11,8 +11,11 @@ public class HL7Processor : IHL7Processor
 
     public HL7Processor(IConfiguration configuration)
     {
-        string conf = "{\"ARTIFACT_NAME\":\"RP_MLLP_VPPCerner_from_External_HL7_ALL\",\"HL7_SEGMENT_ROUTINGS\":[{\"SegmentName\":\"MSG\",\"Position\":3},{\"SegmentName\":\"MSG\",\"Position\":4},{\"SegmentName\":\"MSG\",\"Position\":5},{\"SegmentName\":\"MSG\",\"Position\":6}],\"Port\":12001}";
-        _routingConfiguration = JsonConvert.DeserializeObject<RoutingConfiguration>(conf);        
+        _routingConfiguration = new RoutingConfiguration();
+        configuration.GetSection("Routing").Bind(_routingConfiguration);
+
+        //string conf = "{\"ARTIFACT_NAME\":\"RP_MLLP_VPPCerner_from_External_HL7_ALL\",\"HL7_SEGMENT_ROUTINGS\":[{\"SegmentName\":\"MSG\",\"Position\":3},{\"SegmentName\":\"MSG\",\"Position\":4},{\"SegmentName\":\"MSG\",\"Position\":5},{\"SegmentName\":\"MSG\",\"Position\":6}],\"Port\":12001}";
+        //_routingConfiguration = JsonConvert.DeserializeObject<RoutingConfiguration>(conf);        
     }
 
     public List<ServiceBusRoutingProperty> ProcessHL7Msg(string message)
@@ -51,4 +54,5 @@ public class HL7Processor : IHL7Processor
 
         return routingProperties;
     }
+
 }

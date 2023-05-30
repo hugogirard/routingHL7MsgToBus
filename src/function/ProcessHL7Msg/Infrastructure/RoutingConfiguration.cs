@@ -4,17 +4,17 @@ using Newtonsoft.Json;
 namespace ProcessHL7Msg.Infrastructure;
 
 public class RoutingConfiguration
-{    
-    public string ArtifactName { get; set; }
-    
-    public List<HL7SegmentRouting> HL7SegmentRoutings { get; set; }
+{
+    public string ArtifactName { get; set; } = String.Empty;
 
-    public int Port { get; set; }
+    public List<HL7SegmentRouting> HL7SegmentRoutings { get; set; } = new List<HL7SegmentRouting>();
+
+    public int Port { get; set; } = 0;
 }
 
 public class HL7SegmentRouting 
 {
-    public string SegmentName { get; set; }
+    public string SegmentName { get; set; } = String.Empty;
 
-    public int Position { get; set; }
+    public int Position { get; set; } = 0;
 }

@@ -12,7 +12,7 @@ var host = new HostBuilder()
         builder.AddAzureAppConfiguration(options =>
         {
             options.Connect(cnxString)
-                   .Select("Routing", "Contoso_HIS");
+                   .Select("Routing:*", "Contoso_HIS");
         });
     })
     .ConfigureServices(s => 
@@ -27,14 +27,14 @@ var host = new HostBuilder()
         var sender = client.CreateSender(Environment.GetEnvironmentVariable("ServiceBusTopicName"));
         s.AddSingleton(sender);
 
-        s.AddAzureAppConfiguration();
+       s.AddAzureAppConfiguration();
                           
     })
-    .ConfigureFunctionsWorkerDefaults(app => 
-    {
-        // Use Azure App Configuration middleware for data refresh
-        app.UseAzureAppConfiguration();
-    })
+    //.ConfigureFunctionsWorkerDefaults(app => 
+    //{
+    //    // Use Azure App Configuration middleware for data refresh
+    //    app.UseAzureAppConfiguration();
+    //})
     .Build();
 
 host.Run();
