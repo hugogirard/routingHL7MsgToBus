@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ProcessHL7Msg.Service;
 
@@ -13,6 +14,25 @@ public class HL7Processor : IHL7Processor
     {
         _routingConfiguration = new RoutingConfiguration();
         configuration.GetSection("Routing").Bind(_routingConfiguration);     
+    }
+
+    public string GetSessionIdValue(string message) 
+    {
+        var segments = SplitSegments(message);
+
+        foreach (var segment in segments)
+        {
+            var fields = SplitFields(segment);
+
+            string segmentName = fields[0];
+
+            if (segmentName == _routingConfiguration.SessionField.SegmentName) 
+            {
+                return fields[_routingConfiguration.SessionField.Position - 1];
+            }
+        }
+
+        return string.Empty;
     }
 
     public List<ServiceBusRoutingProperty> ProcessHL7Msg(string message)

@@ -1,0 +1,13 @@
+{
+    "Subscriptions":
+        {
+            "TopicName": "integration",
+            "Subscriptions": [
+                {
+                    "Name": "Test",
+                    "Filter": "MSH.9.1 = 'ADT' OR MSH.9.1 = 'ORU'"
+                }
+            ]
+        }
+    
+}

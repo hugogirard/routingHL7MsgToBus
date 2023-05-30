@@ -40,6 +40,8 @@ namespace Contoso
                 {
                     message.ApplicationProperties.Add(property.Name, property.Value);
                 }
+                // Set the sessionID, needed for FIFO
+                message.SessionId = _hl7Processor.GetSessionIdValue(hl7Message);
                 await _serviceBusSender.SendMessageAsync(message);
                 var response = req.CreateResponse(HttpStatusCode.OK);
 
