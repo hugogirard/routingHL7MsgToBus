@@ -8,8 +8,8 @@ on:
 
 env:
   DOTNET_VERSION: '7.0.x'
-  AZURE_FUNCTION_PACKAGE_PATH: 'src/function'
-  FUNCTION_NAME: ${{ secrets.FUNCTION_NAME }}
+  AZURE_FUNCTION_PACKAGE_PATH: 'src/function/ProcessHL7Msg'
+  FUNCTION_NAME: ${{ secrets.FUNCTION_NAME_PROCESSOR }}
 
 jobs:
   create-azure-resources:
