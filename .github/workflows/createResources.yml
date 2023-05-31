@@ -44,14 +44,14 @@ jobs:
         name: Write Function Processor Name
         with:
           name: FUNCTION_NAME_PROCESSOR
-          value: ${{ steps.createResources.outputs.functionHL7ProcessorName }}
+          value: ${{ steps.createResources.outputs.functionProcessorName }}
           pa_token: ${{ secrets.PA_TOKEN }}     
 
       - uses: gliech/create-github-secret-action@v1
         name: Write Function Admin Name
         with:
           name: FUNCTION_NAME_ADMIN
-          value: ${{ steps.createResources.outputs.functionAdminName }}
+          value: ${{ steps.createResources.outputs.functionHL7AdminName }}
           pa_token: ${{ secrets.PA_TOKEN }}               
 
                     
