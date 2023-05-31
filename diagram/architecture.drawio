@@ -1,0 +1,34 @@
+<mxfile host="65bd71144e">
+    <diagram id="NGofBhB6Dc7hQQqxr-dl" name="Page-1">
+        <mxGraphModel dx="1022" dy="784" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="ProcesHL7Msg" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/iot/Function_Apps.svg;" vertex="1" parent="1">
+                    <mxGeometry x="361" y="237" width="68" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="SubscriptionAdmin" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/iot/Function_Apps.svg;" vertex="1" parent="1">
+                    <mxGeometry x="361" y="364" width="68" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="External&lt;br&gt;Configuration Store" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/integration/App_Configuration.svg;" vertex="1" parent="1">
+                    <mxGeometry x="532" y="224" width="64" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Service Bus&lt;br&gt;Topic" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/integration/Service_Bus.svg;" vertex="1" parent="1">
+                    <mxGeometry x="530" y="375" width="68" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Consumer&lt;br&gt;Subscription A" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/iot/Function_Apps.svg;" vertex="1" parent="1">
+                    <mxGeometry x="444" y="542" width="68" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Consumer&lt;br&gt;Subscription B" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/iot/Function_Apps.svg;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="542" width="68" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value=".Net&lt;br&gt;Console App&lt;br&gt;Sender" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#115193;gradientColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="117" y="285" width="73.5" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Azure&lt;br&gt;CosmosDB" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;" vertex="1" parent="1">
+                    <mxGeometry x="534" y="715" width="64" height="64" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

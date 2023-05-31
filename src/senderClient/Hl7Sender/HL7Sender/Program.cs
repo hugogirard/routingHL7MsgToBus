@@ -8,15 +8,9 @@ var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json",
                                               .AddUserSecrets<Program>()                                              
                                               .Build();
 
-var serviceProvider = new ServiceCollection()
-                          .AddSingleton(configuration)
-                          .AddSingleton<IBootStrapper, BootStrapper>()
-                          .BuildServiceProvider();
+var bootstrapper = new BootStrapper(configuration);
 
-
-var bootstrapper = serviceProvider.GetService<IBootStrapper>();
-
-if (bootstrapper.Init(args)) 
+if (bootstrapper.Init(new string[] { "1" })) 
 {
     await bootstrapper.StartSendingAsync();
 }

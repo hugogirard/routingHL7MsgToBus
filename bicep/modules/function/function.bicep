@@ -34,6 +34,8 @@ resource serverFarm 'Microsoft.Web/serverfarms@2022-09-01' = {
 var functionAppNames = [
   'fnc-routing-${suffix}'
   'fnc-admin-${suffix}'
+  'fnc-consumerA-${suffix}'
+  'fnc-consumerB-${suffix}'
 ]
 
 resource functionProcessHL7 'Microsoft.Web/sites@2022-09-01' = [for name in functionAppNames:{
@@ -81,3 +83,5 @@ resource functionProcessHL7 'Microsoft.Web/sites@2022-09-01' = [for name in func
 
 output functionHL7ProcessorName string = functionAppNames[0]
 output functionHL7AdminName string = functionAppNames[1]
+output functionConsumerAName string = functionAppNames[2]
+output functionConsumerBName string = functionAppNames[2]

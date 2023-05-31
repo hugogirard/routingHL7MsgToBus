@@ -51,3 +51,5 @@ module appConfiguration 'modules/appconfiguration/app.configuration.bicep' = {
 output appConfigurationStoreName string = appConfiguration.outputs.appConfigurationName
 output functionProcessorName string = function.outputs.functionHL7ProcessorName
 output functionAdminName string = function.outputs.functionHL7AdminName
+output functionConsumerAName string = function.outputs.functionConsumerAName
+output functionConsumerBName string = function.outputs.functionConsumerBName

@@ -3,13 +3,14 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HL7Sender
 {
-    public class BootStrapper : IBootStrapper
+    public class BootStrapper
     {
         private readonly string _functionUrl;
         private int _msgCount;
@@ -35,10 +36,12 @@ namespace HL7Sender
         {
             using (var httpClient = new HttpClient())
             {
+                string msg = string.Empty;
                 for (int i = 0; i < _msgCount; i++)
                 {
-                    var msg = HL7MsgGenerator.GenerateAdt("CONTOSO_HIS", "CONTOSO_LAB", "A01");
-                    httpClient.DefaultRequestHeaders.Add("Content-Type", "text/plain; charset=utf-8");
+                    msg = HL7MsgGenerator.GenerateAdt("CONTOSO_HIS", "CONTOSO_LAB", "A01");                 
+                    await httpClient.PostAsync(_functionUrl, new StringContent(msg));
+                    msg = HL7MsgGenerator.GenerateAdt("CONTOSO_HIS", "CONTOSO_LAB", "A04");
                     await httpClient.PostAsync(_functionUrl, new StringContent(msg));
                 }
             }
