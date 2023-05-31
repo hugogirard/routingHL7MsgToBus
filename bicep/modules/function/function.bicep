@@ -32,10 +32,13 @@ resource serverFarm 'Microsoft.Web/serverfarms@2022-09-01' = {
   }
 }
 
-var functionAppName = 'fnc-routing-${suffix}'
+var functionAppNames = [
+  'fnc-routing-${suffix}'
+  'fnc-admin-${suffix}'
+]
 
-resource function 'Microsoft.Web/sites@2022-09-01' = {
-  name: functionAppName
+resource functionProcessHL7 'Microsoft.Web/sites@2022-09-01' = [for name in functionAppNames:{
+  name: name
   location: location
   kind: 'functionapp'
   properties: {
@@ -71,9 +74,10 @@ resource function 'Microsoft.Web/sites@2022-09-01' = {
           value: 'dotnet'
         }
       ]
-      netFrameworkVersion: 'v6.0'
+      netFrameworkVersion: 'v7.0'
     }    
   }
-}
+}]
 
-output functionOutputName string = function.name
+output functionHL7ProcessorName string = functionAppNames[0]
+output functionHL7AdminName string = functionAppNames[1]
