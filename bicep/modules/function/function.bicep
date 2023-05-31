@@ -70,7 +70,7 @@ resource functionProcessHL7 'Microsoft.Web/sites@2022-09-01' = [for name in func
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet'
+          value: 'dotnet-isolated'
         }
 
       ]
