@@ -22,8 +22,8 @@ var host = new HostBuilder()
         client = new ServiceBusAdministrationClient(Environment.GetEnvironmentVariable("ServiceBusCnxString"));
 #else
         // Create service bus client
-        var client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusFQDN"),
-                                          new DefaultAzureCredential());
+        client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusFQDN"),
+                                      new DefaultAzureCredential());
 #endif
 
         s.AddSingleton(client);

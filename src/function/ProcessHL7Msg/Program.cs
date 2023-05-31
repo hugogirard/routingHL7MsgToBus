@@ -23,8 +23,8 @@ var host = new HostBuilder()
         client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusCnxString"));
 #else
         // Create service bus client
-        var client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusFQDN"),
-                                          new DefaultAzureCredential());
+        client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusFQDN"),
+                                      new DefaultAzureCredential());
 #endif
         //// Topic name
         var sender = client.CreateSender(Environment.GetEnvironmentVariable("ServiceBusTopicName"));
