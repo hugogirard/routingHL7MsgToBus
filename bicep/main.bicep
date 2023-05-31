@@ -49,3 +49,4 @@ module appConfiguration 'modules/appconfiguration/app.configuration.bicep' = {
 }
 
 output appConfigurationStoreName string = appConfiguration.outputs.appConfigurationName
+output functionName string = function.outputs.functionOutputName

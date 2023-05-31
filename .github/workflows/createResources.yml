@@ -40,11 +40,11 @@ jobs:
           az appconfig kv import -s file --format json --label Contoso_HIS --content-type "application/json" --separator : --depth 2 --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --path ./bicep/modules/appconfiguration/routing.configuration.json --yes
           az appconfig kv import -s file --format json --label dev --content-type "application/json" --separator : --depth 2 --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --path ./bicep/modules/appconfiguration/subscription.configuration.json --yes
 
-    #   - uses: gliech/create-github-secret-action@v1
-    #     name: Write Resource Group Name
-    #     with:
-    #       name: RG_NAME
-    #       value: ${{ steps.createResources.outputs.rgName }}
-    #       pa_token: ${{ secrets.PA_TOKEN }}     
+      - uses: gliech/create-github-secret-action@v1
+        name: Write Resource Group Name
+        with:
+          name: FUNCTION_NAME
+          value: ${{ steps.createResources.outputs.functionName }}
+          pa_token: ${{ secrets.PA_TOKEN }}     
 
                     

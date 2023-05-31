@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessHL7Msg", "function\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionAdmin", "function\SubscriptionAdmin\SubscriptionAdmin.csproj", "{7A49B326-631A-45DB-BE8C-D14B148EB566}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sender", "Sender", "{6707CC9E-32DB-4AB2-8D11-8087FD509C64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HL7Sender", "senderClient\Hl7Sender\HL7Sender\HL7Sender.csproj", "{D26973DD-A567-4F92-ADD8-B448F1226A54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,10 @@ Global
 		{7A49B326-631A-45DB-BE8C-D14B148EB566}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A49B326-631A-45DB-BE8C-D14B148EB566}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A49B326-631A-45DB-BE8C-D14B148EB566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D26973DD-A567-4F92-ADD8-B448F1226A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26973DD-A567-4F92-ADD8-B448F1226A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26973DD-A567-4F92-ADD8-B448F1226A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26973DD-A567-4F92-ADD8-B448F1226A54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DF121DB7-5328-475B-B4AD-A7ED0965A3C3} = {A78500D2-D429-4F8B-B39E-A39D5A2FE2CB}
 		{7A49B326-631A-45DB-BE8C-D14B148EB566} = {A78500D2-D429-4F8B-B39E-A39D5A2FE2CB}
+		{D26973DD-A567-4F92-ADD8-B448F1226A54} = {6707CC9E-32DB-4AB2-8D11-8087FD509C64}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E421727-B11F-4BB9-A3AB-058D0FC3E08E}

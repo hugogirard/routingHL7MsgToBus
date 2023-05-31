@@ -83,7 +83,7 @@ namespace SubscriptionAdmin
 
         }
 
-        [Function("ManageSubscription")]
+        [Function("RecreateTopic")]
         public async Task<HttpResponseData> RecreateTopic([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req) 
         {
             try
@@ -116,6 +116,14 @@ namespace SubscriptionAdmin
                     _logger.LogError("Cannot create topic {topicName}: StatusCode: {Status}", topicName,serviceBusResponse.GetRawResponse().Status);
                     return req.CreateResponse(HttpStatusCode.InternalServerError);
                 }
+
+                // Here we create the default subscription to have one that will receive all msg
+                var subscriptionResponse = await _serviceBusClient.CreateSubscriptionAsync(topicName, "allMsg");
+                if (subscriptionResponse.GetRawResponse().IsError)
+                {
+                    _logger.LogError("Cannot create subscription {subscriptionName} on topic {topicName}", "allMsg", topicName);
+                }
+
 
                 return req.CreateResponse(HttpStatusCode.OK);
 
