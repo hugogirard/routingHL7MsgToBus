@@ -17,3 +17,6 @@ resource topic 'Microsoft.ServiceBus/namespaces/topics@2022-10-01-preview' = {
   properties: {   
   }
 }
+
+
+output serviceBusNamespaceName string = namespace.name

@@ -6,7 +6,6 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' existing
   name: appInsightsName
 }
 
-
 resource storage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   name: 'strf${suffix}'
   location: location
@@ -73,6 +72,7 @@ resource functionProcessHL7 'Microsoft.Web/sites@2022-09-01' = [for name in func
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: 'dotnet'
         }
+
       ]
       netFrameworkVersion: 'v7.0'
     }    
