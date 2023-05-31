@@ -62,7 +62,8 @@ public class HL7Processor : IHL7Processor
                 {                    
                     routingProperties.Add(new ServiceBusRoutingProperty
                     {
-                        Name = $"{segmentName}.{p.Position}",
+                        // Dot character are not supported in routing, so we replace it with underscore
+                        Name = $"{segmentName}_{p.Position}",
                         Value = fields[p.Position - 1]
                     });
                 }
@@ -73,7 +74,8 @@ public class HL7Processor : IHL7Processor
                     {                            
                         routingProperties.Add(new ServiceBusRoutingProperty
                         {
-                            Name = $"{segmentName}.{p.Position}.{subPosition}",
+                            // Dot character are not supported in routing, so we replace it with underscore
+                            Name = $"{segmentName}_{p.Position}_{subPosition}",
                             Value = subValues[subPosition - 1]
                         });
                     } 

@@ -30,9 +30,7 @@ namespace Contoso
             {
                 _logger.LogInformation("C# HTTP trigger function processed a request.");
                 string hl7Message = await new StreamReader(req.Body).ReadToEndAsync();
-
-                ProcessHL7MsgOutput processHL7MsgOutput = new();
-
+                
                 var routingProperty = _hl7Processor.ProcessHL7Msg(hl7Message);
 
                 var message = new ServiceBusMessage(hl7Message);
