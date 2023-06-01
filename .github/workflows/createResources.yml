@@ -67,3 +67,12 @@ jobs:
           name: FUNCTION_CONSUMER_B
           value: ${{ steps.createResources.outputs.functionConsumerBName }}
           pa_token: ${{ secrets.PA_TOKEN }}
+
+      - uses: gliech/create-github-secret-action@v1
+        name: Write Function Consumer B Name
+        with:
+          name: FUNCTION_CONSUMER_B
+          value: ${{ steps.createResources.outputs.functionConsumerBName }}
+          pa_token: ${{ secrets.PA_TOKEN }}
+
+          appConfigurationStoreName          

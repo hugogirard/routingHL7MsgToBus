@@ -54,6 +54,7 @@ namespace SubscriptionAdmin
                     if (createSubscription)
                     {
                         var subscriptionDescription = new CreateSubscriptionOptions(topicName, subscription.Name);
+                        await _serviceBusClient.CreateSubscriptionAsync(subscriptionDescription);
                     }
 
                     foreach (var rule in subscription.Rules)

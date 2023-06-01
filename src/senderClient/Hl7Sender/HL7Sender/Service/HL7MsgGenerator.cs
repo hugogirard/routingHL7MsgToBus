@@ -8,7 +8,7 @@ public static class HL7MsgGenerator
 {
     public static string GenerateAdt(string source, string destination,string adt_type)
     {
-        string mshSegment = $"MSH|^~\\&|CONTOSO_HIS|CONTOSO|CONTOSO_LAB|CONTOSO_CA|202305311200||ADT^{adt_type}|123456789|P|2.5|||";
+        string mshSegment = $"MSH|^~\\&|{source}|CONTOSO|{destination}|CONTOSO|202305311200||ADT^{adt_type}|123456789|P|2.5|||";
         string evnSegment = "EVN|A01|202305311200";
         string pidSegment = "PID|1||12345||Doe^John^^^Mr.|||123 Main St^^Los Angeles^CA^90001^US";
 

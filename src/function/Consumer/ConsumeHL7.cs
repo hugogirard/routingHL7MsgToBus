@@ -15,7 +15,7 @@ namespace Consumer
 
         [Function("ConsumeHL7")]        
         [CosmosDBOutput("%CosmosDb%", "%CosmosCollOut%", Connection = "CosmosConnection", CreateIfNotExists = true)]
-        public object Run([ServiceBusTrigger("%TopicName%", "%SubscriptionName%", Connection = "StrCnxString")] string mySbMsg)
+        public object Run([ServiceBusTrigger("%ServiceBusTopicName%", "%SubscriptionName%", Connection = "ServiceBusCnxString")] string mySbMsg)
         {
             try
             {

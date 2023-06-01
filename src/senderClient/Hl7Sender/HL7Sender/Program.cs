@@ -10,18 +10,21 @@ var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json",
 
 var bootstrapper = new BootStrapper(configuration);
 
-Console.WriteLine("Enter the command you want to execute");
-Console.WriteLine("1 - Send HL7 messages");
-Console.WriteLine("2 - Recreate the topic");
-Console.WriteLine("3 - Create the subscriptions");
-var key = Console.ReadKey();
+//Console.WriteLine("Enter the command you want to execute");
+//Console.WriteLine("1 - Send HL7 messages");
+//Console.WriteLine("2 - Recreate the topic");
+//Console.WriteLine("3 - Create the subscriptions");
+//var key = Console.ReadKey();
 
-switch (key.KeyChar)
+
+
+switch ('1')
 {
     case '1':
-        Console.WriteLine("Enter the number of messages to send");
-        var msgCount = Console.ReadLine();
-        if (bootstrapper.Init(new string[] { msgCount }))
+        //Console.WriteLine("Enter the number of messages to send");
+        //var msgCount = Console.ReadLine();
+        if (bootstrapper.Init(new string[] { "1" }))
+        //if (bootstrapper.Init(new string[] { msgCount }))
         {
             await bootstrapper.StartSendingAsync();
         }

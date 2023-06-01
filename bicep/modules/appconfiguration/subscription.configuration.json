@@ -7,10 +7,19 @@
                     "Name": "ConsumerA",
                     "Rules": [{
                         "Name": "RuleA",
-                        "Filter": "MSH.3 = 'CONTOSO_HIS' AND MSH.5 = 'CONTOSO_LAB'",
+                        "Filter": "MSH.3 = 'CONTOSO_SENDER_A' AND MSH.5 = 'CONTOSO_RECEIVE_A' AND MSH.9.1 = 'ADT' AND MSH.9.2 = 'A01' OR MSH.3 = 'CONTOSO_SENDER_A' AND MSH.5 = 'CONTOSO_RECEIVE_A' AND MSH_9_1 = 'ADT' AND MSH.9.2 = 'A02' OR MSH.3 = 'CONTOSO_SENDER_A' AND MSH.5 = 'CONTOSO_RECEIVE_A' AND MSH.9.1 = 'ADT' AND MSH.9.2 = 'A01' OR MSH.3 = 'CONTOSO_SENDER_A' AND MSH.5 = 'CONTOSO_RECEIVE_A' AND MSH.9.1 = 'ADT' AND MSH.9.2 = 'A04'",
                         "IsActive": true,
                         "Recreate": true
                     }]
+                },
+                {
+                    "Name": "ConsumerB",
+                    "Rules": [{
+                        "Name": "RuleA",
+                        "Filter": "MSH.3 = 'CONTOSO_SENDER_B' AND MSH.5 = 'CONTOSO_RECEIVE_B' AND MSH.9.1 = 'ADT' AND MSH.9.2 = 'A04'",
+                        "IsActive": true,
+                        "Recreate": true
+                    }]                    
                 }
             ]
         }

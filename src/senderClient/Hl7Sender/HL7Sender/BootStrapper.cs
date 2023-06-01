@@ -1,4 +1,5 @@
 ﻿using HL7Sender.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -45,18 +46,19 @@ namespace HL7Sender
             using (var httpClient = new HttpClient())
             {
                 string msg = string.Empty;
+                HttpResponseMessage response;
                 for (int i = 0; i < _msgCount; i++)
                 {
                     for (int y = 0; y < senders.Length; y++)
                     {
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A01");
-                        await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A02");
-                        await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A03");
-                        await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A04");
-                        await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
                     }
 
                 }

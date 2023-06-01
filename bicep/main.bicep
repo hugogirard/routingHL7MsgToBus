@@ -29,6 +29,24 @@ module monitoring 'modules/monitoring/insights.bicep' = {
   }
 }
 
+module appConfiguration 'modules/appconfiguration/app.configuration.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'appconfiguration'
+  params: {
+    location: location
+    suffix: suffix
+  }
+}
+
+module cosmosdb 'modules/cosmosdb/cosmosdb.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'cosmosdb'
+  params: {
+    location: location
+    suffix: suffix
+  }
+}
+
 module function 'modules/function/function.bicep' = {
   scope: resourceGroup(rg.name)
   name: 'function'
@@ -36,15 +54,9 @@ module function 'modules/function/function.bicep' = {
     appInsightsName: monitoring.outputs.appInsightName
     location: location
     suffix: suffix
-  }
-}
-
-module appConfiguration 'modules/appconfiguration/app.configuration.bicep' = {
-  scope: resourceGroup(rg.name)
-  name: 'appconfiguration'
-  params: {
-    location: location
-    suffix: suffix
+    appConfigurationName: appConfiguration.outputs.appConfigurationName
+    srvNamespace: servicebus.outputs.serviceBusNamespaceName
+    cosmosdbName: cosmosdb.outputs.cosmosDbName
   }
 }
 
