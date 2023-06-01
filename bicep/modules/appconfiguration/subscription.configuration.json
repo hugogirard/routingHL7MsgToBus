@@ -4,10 +4,13 @@
             "TopicName": "integration",
             "Subscriptions": [
                 {
-                    "Name": "Test",
-                    "Filter": "MSH.3 = 'CONTOSO_HIS' AND MSH.5 = 'CONTOSO_LAB'",
-                    "IsActive": true,
-                    "Recreate": true
+                    "Name": "ConsumerA",
+                    "Rules": [{
+                        "Name": "RuleA",
+                        "Filter": "MSH.3 = 'CONTOSO_HIS' AND MSH.5 = 'CONTOSO_LAB'",
+                        "IsActive": true,
+                        "Recreate": true
+                    }]
                 }
             ]
         }

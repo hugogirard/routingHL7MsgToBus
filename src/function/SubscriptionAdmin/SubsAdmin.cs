@@ -50,27 +50,38 @@ namespace SubscriptionAdmin
                         _logger.LogError(ex, ex.Message);
                         continue;
                     }
-                    
-                    if (createSubscription) 
+
+                    if (createSubscription)
                     {
                         var subscriptionDescription = new CreateSubscriptionOptions(topicName, subscription.Name);
-                        // Dot character are not supported in routing, so we replace it with underscore
-                        var ruleOptions = new CreateRuleOptions("default",new SqlRuleFilter(subscription.Filter.Replace(".","_")));
-                        serviceBusResponse = await _serviceBusClient.CreateSubscriptionAsync(subscriptionDescription,ruleOptions);
-                        if (serviceBusResponse.GetRawResponse().IsError)
-                        {
-                            _logger.LogError("Cannot create subscription {subscriptionName} on topic {topicName}", subscription.Name, topicName);
-                            continue;
+                    }
+
+                    foreach (var rule in subscription.Rules)
+                    {
+                        bool ruleExists = await _serviceBusClient.RuleExistsAsync(topicName, subscription.Name, rule.Name);
+                        bool createRule = false;
+                        if (ruleExists && rule.Recreate) 
+                        { 
+                            await _serviceBusClient.DeleteRuleAsync(topicName,subscription.Name, rule.Name);                                   
+                            createRule = true;
+                        }                     
+                        else if (!ruleExists)
+                            createRule = true;
+
+                        if (createRule) 
+                        {                                
+                            // Dot character are not supported in routing, so we replace it with underscore
+                            var ruleOptions = new CreateRuleOptions(rule.Name, new SqlRuleFilter(rule.Filter.Replace(".", "_")));
+                            var rulesResponse = await _serviceBusClient.CreateRuleAsync(topicName, subscription.Name, ruleOptions, CancellationToken.None);
                         }
 
-                    }
-                    
+                    }                                            
                 }
 
                 var response = req.CreateResponse(HttpStatusCode.OK);
                 response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
 
-                response.WriteString("Welcome to Azure Functions!");
+                response.WriteString("Subscription created");
 
                 return response;
             }

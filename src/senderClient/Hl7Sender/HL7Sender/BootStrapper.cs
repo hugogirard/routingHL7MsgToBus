@@ -14,12 +14,14 @@ namespace HL7Sender
     {
         private readonly string _sendApiUrl;
         private readonly string _recreateTopicApiUrl;
+        private readonly string _createSubsApiUrl;
         private int _msgCount;
 
         public BootStrapper(IConfiguration configuration)
         {
             _sendApiUrl = configuration["SendApiUrl"] ?? throw new ArgumentException("the functionUrl need to be present");
             _recreateTopicApiUrl = configuration["TopicApiUrl"] ?? throw new ArgumentException("the functionUrl need to be present");
+            _createSubsApiUrl = configuration["SubsApiUrl"] ?? throw new ArgumentException("the functionUrl need to be present");
         }
 
         public bool Init(string[] args)
@@ -66,6 +68,14 @@ namespace HL7Sender
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.PostAsync(_recreateTopicApiUrl, null);
+            }
+        }
+
+        public async Task CreateSubscription() 
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.PostAsync(_createSubsApiUrl, null);
             }
         }
     }

@@ -13,6 +13,7 @@ var bootstrapper = new BootStrapper(configuration);
 Console.WriteLine("Enter the command you want to execute");
 Console.WriteLine("1 - Send HL7 messages");
 Console.WriteLine("2 - Recreate the topic");
+Console.WriteLine("3 - Create the subscriptions");
 var key = Console.ReadKey();
 
 switch (key.KeyChar)
@@ -27,6 +28,9 @@ switch (key.KeyChar)
         break;
     case '2':
         await bootstrapper.RecreateTopic();
+        break;
+    case '3':
+        await bootstrapper.CreateSubscription();
         break;
     default:
         Console.WriteLine("Invalid selection");

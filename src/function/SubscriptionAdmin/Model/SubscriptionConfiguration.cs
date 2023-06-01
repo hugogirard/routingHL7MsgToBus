@@ -18,6 +18,13 @@ namespace SubscriptionAdmin.Model
     {
         public string Name { get; set; } = string.Empty;
 
+        public List<Rule> Rules { get; set; } = new();
+    }
+
+    public class Rule 
+    {
+        public string Name { get; set; } = string.Empty;
+
         public string Filter { get; set; } = string.Empty;
 
         public bool IsActive { get; set; }
@@ -25,5 +32,6 @@ namespace SubscriptionAdmin.Model
         // We this option you need to be carefull, all message in the current subscription will
         // be deleted and the subscription will be recreated
         public bool Recreate { get; set; }
+
     }
 }
