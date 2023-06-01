@@ -1,21 +1,21 @@
-name: Deploy ProcessHL7Msg Azure Function
+name: Deploy Consumers Azure Function
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'src/function/ProcessHL7Msg/**'
+      - 'src/function/Consumer/**'
 
 env:
   DOTNET_VERSION: '7.0.x'
-  AZURE_FUNCTION_PACKAGE_PATH: 'src/function/ProcessHL7Msg/**'
+  AZURE_FUNCTION_PACKAGE_PATH: 'src/function/Consumer/**'
   FUNCTION_NAME: ${{ secrets.FUNCTION_NAME_PROCESSOR }}
 
 jobs:
-  deploy-function-app:
+  deploy-function-app-consumers:
 
     env:
-      DEPLOYMENT_NAME: function-process-deployment
+      DEPLOYMENT_NAME: function-consumer-deployment
       LOCATION: 'eastus'
 
     runs-on: ubuntu-latest
@@ -41,11 +41,19 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: 'Deploy Azure Functions Action'
+      - name: 'Deploy Azure Functions Consumer A'
         uses: Azure/functions-action@v1        
         with:
-          app-name: ${{ secrets.FUNCTION_NAME_PROCESSOR }}
+          app-name: ${{ secrets.FUNCTION_CONSUMER_A }}
+          package: '${{ env.AZURE_FUNCTION_PACKAGE_PATH }}/output'      
+
+      - name: 'Deploy Azure Functions Consumer B'
+        uses: Azure/functions-action@v1        
+        with:
+          app-name: ${{ secrets.FUNCTION_CONSUMER_B }}
           package: '${{ env.AZURE_FUNCTION_PACKAGE_PATH }}/output'             
+          
+          
 
 
     

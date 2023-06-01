@@ -1,21 +1,20 @@
-name: Deploy ProcessHL7Msg Azure Function
+name: Deploy Admin Azure Function
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'src/function/ProcessHL7Msg/**'
+      - 'src/function/SubscriptionAdmin/**'
 
 env:
   DOTNET_VERSION: '7.0.x'
-  AZURE_FUNCTION_PACKAGE_PATH: 'src/function/ProcessHL7Msg/**'
-  FUNCTION_NAME: ${{ secrets.FUNCTION_NAME_PROCESSOR }}
+  AZURE_FUNCTION_PACKAGE_PATH: 'src/function/SubscriptionAdmin/**'
 
 jobs:
   deploy-function-app:
 
     env:
-      DEPLOYMENT_NAME: function-process-deployment
+      DEPLOYMENT_NAME: function-admin-deployment
       LOCATION: 'eastus'
 
     runs-on: ubuntu-latest
@@ -44,7 +43,7 @@ jobs:
       - name: 'Deploy Azure Functions Action'
         uses: Azure/functions-action@v1        
         with:
-          app-name: ${{ secrets.FUNCTION_NAME_PROCESSOR }}
+          app-name: ${{ secrets.FUNCTION_NAME_ADMIN }}
           package: '${{ env.AZURE_FUNCTION_PACKAGE_PATH }}/output'             
 
 
