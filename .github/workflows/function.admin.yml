@@ -8,7 +8,7 @@ on:
 
 env:
   DOTNET_VERSION: '7.0.x'
-  AZURE_FUNCTION_PACKAGE_PATH: 'src/function/SubscriptionAdmin/**'
+  AZURE_FUNCTION_PACKAGE_PATH: 'src/function/SubscriptionAdmin'
 
 jobs:
   deploy-function-app:
