@@ -158,8 +158,9 @@ resource functionConsumer 'Microsoft.Web/sites@2022-09-01' = [for fnc in items(c
           value: defaultAuthorizationRules.listKeys().primaryConnectionString
         }
         {
+          
           name: 'CosmosDb'
-          value: account.listKeys().primaryMasterKey
+          value: 'AccountEndpoint=https://${cosmosdbName}.documents.azure.com:443/;AccountKey=${account.listKeys().primaryMasterKey};'
         }
         {
           name: 'CosmosCollOut'
