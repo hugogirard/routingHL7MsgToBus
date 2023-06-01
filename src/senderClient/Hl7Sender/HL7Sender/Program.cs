@@ -10,7 +10,30 @@ var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json",
 
 var bootstrapper = new BootStrapper(configuration);
 
-if (bootstrapper.Init(new string[] { "1" })) 
+Console.WriteLine("Enter the command you want to execute");
+Console.WriteLine("1 - Send HL7 messages");
+Console.WriteLine("2 - Recreate the topic");
+var key = Console.ReadKey();
+
+switch (key.KeyChar)
 {
-    await bootstrapper.StartSendingAsync();
+    case '1':
+        Console.WriteLine("Enter the number of messages to send");
+        var msgCount = Console.ReadLine();
+        if (bootstrapper.Init(new string[] { msgCount }))
+        {
+            await bootstrapper.StartSendingAsync();
+        }
+        break;
+    case '2':
+        await bootstrapper.RecreateTopic();
+        break;
+    default:
+        Console.WriteLine("Invalid selection");
+        break;
 }
+
+Console.WriteLine("Press any key to exit");
+Console.ReadKey();
+
+

@@ -5,7 +5,7 @@
             "Subscriptions": [
                 {
                     "Name": "Test",
-                    "Filter": "MSH.9.1 = 'ADT' OR MSH.9.1 = 'ORU'",
+                    "Filter": "MSH.3 = 'CONTOSO_HIS' AND MSH.5 = 'CONTOSO_LAB'",
                     "IsActive": true,
                     "Recreate": true
                 }
