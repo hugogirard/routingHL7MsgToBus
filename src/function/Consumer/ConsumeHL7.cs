@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Consumer
 {
-    public class ConsumeHL7
+    public partial class ConsumeHL7
     {
         private readonly ILogger _logger;
 
@@ -13,10 +13,27 @@ namespace Consumer
             _logger = loggerFactory.CreateLogger<ConsumeHL7>();
         }
 
-        [Function("ConsumeHL7")]
-        public void Run([ServiceBusTrigger("%TopicName%", "%SubscriptionName%", Connection = "StrCnxString")] string mySbMsg)
+        [Function("ConsumeHL7")]        
+        [CosmosDBOutput("%CosmosDb%", "%CosmosCollOut%", Connection = "CosmosConnection", CreateIfNotExists = true)]
+        public object Run([ServiceBusTrigger("%TopicName%", "%SubscriptionName%", Connection = "StrCnxString")] string mySbMsg)
         {
-            _logger.LogInformation($"C# ServiceBus topic trigger function processed message: {mySbMsg}");
+            try
+            {
+                var document = new HL7Document
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    HL7Message = mySbMsg
+                };
+
+                return document;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return null;
+            }
+
+
         }
     }
 }

@@ -18,13 +18,8 @@ var host = new HostBuilder()
     .ConfigureServices(s => 
     {
         ServiceBusAdministrationClient client;
-#if DEBUG
+
         client = new ServiceBusAdministrationClient(Environment.GetEnvironmentVariable("ServiceBusCnxString"));
-#else
-        // Create service bus client
-        client = new ServiceBusClient(Environment.GetEnvironmentVariable("ServiceBusFQDN"),
-                                      new DefaultAzureCredential());
-#endif
 
         s.AddSingleton(client);
     })
