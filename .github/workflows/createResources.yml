@@ -51,7 +51,7 @@ jobs:
         name: Write Function Admin Name
         with:
           name: FUNCTION_NAME_ADMIN
-          value: ${{ steps.createResources.outputs.functionHL7AdminName }}
+          value: ${{ steps.createResources.outputs.functionAdminName }}
           pa_token: ${{ secrets.PA_TOKEN }}              
 
       - uses: gliech/create-github-secret-action@v1
