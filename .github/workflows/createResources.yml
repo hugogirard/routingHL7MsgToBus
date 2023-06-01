@@ -75,4 +75,11 @@ jobs:
           value: ${{ steps.createResources.outputs.functionConsumerBName }}
           pa_token: ${{ secrets.PA_TOKEN }}
 
-          appConfigurationStoreName          
+      - uses: gliech/create-github-secret-action@v1
+        name: Write ConfigurationStore Name
+        with:
+          name: Configuration_Store_Name
+          value: ${{ steps.createResources.outputs.appConfigurationStoreName }}
+          pa_token: ${{ secrets.PA_TOKEN }}
+
+                    
