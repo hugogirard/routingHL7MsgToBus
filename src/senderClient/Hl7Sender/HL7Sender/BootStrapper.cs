@@ -16,26 +16,13 @@ namespace HL7Sender
         private readonly string _sendApiUrl;
         private readonly string _recreateTopicApiUrl;
         private readonly string _createSubsApiUrl;
-        private int _msgCount;
+        private int _msgCount = 1;
 
         public BootStrapper(IConfiguration configuration)
         {
             _sendApiUrl = configuration["SendApiUrl"] ?? throw new ArgumentException("the functionUrl need to be present");
             _recreateTopicApiUrl = configuration["TopicApiUrl"] ?? throw new ArgumentException("the functionUrl need to be present");
             _createSubsApiUrl = configuration["SubsApiUrl"] ?? throw new ArgumentException("the functionUrl need to be present");
-        }
-
-        public bool Init(string[] args)
-        {
-            if (args.Length != 1)
-            {
-                return false;
-            }
-
-            // Get the number of msg to send
-            _msgCount = int.Parse(args[0]);
-
-            return true;
         }
         
         public async Task StartSendingAsync()
@@ -53,12 +40,28 @@ namespace HL7Sender
                     {
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A01");
                         response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        if (!response.IsSuccessStatusCode) 
+                        {
+                            Console.WriteLine($"Error sending msg: {response.StatusCode}");
+                        }
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A02");
                         response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine($"Error sending msg: {response.StatusCode}");
+                        }
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A03");
                         response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine($"Error sending msg: {response.StatusCode}");
+                        }
                         msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A04");
                         response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine($"Error sending msg: {response.StatusCode}");
+                        }
                     }
 
                 }
@@ -70,6 +73,10 @@ namespace HL7Sender
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.PostAsync(_recreateTopicApiUrl, null);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error creating topics msg: {response.StatusCode}");
+                }
             }
         }
 
@@ -78,6 +85,10 @@ namespace HL7Sender
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.PostAsync(_createSubsApiUrl, null);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error creating subscription: {response.StatusCode}");
+                }
             }
         }
     }

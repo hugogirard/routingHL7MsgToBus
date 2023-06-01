@@ -55,6 +55,8 @@ namespace SubscriptionAdmin
                     {
                         var subscriptionDescription = new CreateSubscriptionOptions(topicName, subscription.Name);
                         await _serviceBusClient.CreateSubscriptionAsync(subscriptionDescription);
+                        // Delete the default rules
+                        await _serviceBusClient.DeleteRuleAsync(topicName, subscription.Name, RuleProperties.DefaultRuleName);
                     }
 
                     foreach (var rule in subscription.Rules)
