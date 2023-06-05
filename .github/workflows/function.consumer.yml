@@ -2,10 +2,7 @@ name: Deploy Consumers Azure Function
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'src/function/Consumer/**'
-
+    
 env:
   DOTNET_VERSION: '7.0.x'
   AZURE_FUNCTION_PACKAGE_PATH: 'src/function/Consumer'  

@@ -2,7 +2,7 @@
   "profiles": {
     "Consumer": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7035",
+      "commandLineArgs": "--port 7297",
       "launchBrowser": false
     }
   }

@@ -61,12 +61,16 @@ var consumerConfig = {
   consumerA: {
     name: 'fnc-consumerA-${suffix}'
     cosmosCollectionName: 'consumerA'
+    subsname: 'ConsumerA'
     fileshare: 'fnccons98'
+    topic: 'integration'
   }
   consumerB: {
     name: 'fnc-consumerB-${suffix}'
     cosmosCollectionName: 'consumerB'
+    subsname: 'ConsumerB'
     fileshare: 'fnccons99'
+    topic: 'integration'
   }  
 }
 
@@ -163,6 +167,18 @@ resource functionConsumer 'Microsoft.Web/sites@2022-09-01' = [for fnc in items(c
           value: 'AccountEndpoint=https://${cosmosdbName}.documents.azure.com:443/;AccountKey=${account.listKeys().primaryMasterKey};'
         }
         {
+          name: 'Topic'
+          value: fnc.value.topic
+        }
+        {
+          name: 'Database'
+          value: 'cosmosdb-${suffix}'
+        }
+        {
+          name: 'SubsName'
+          value: fnc.value.subsname
+        }
+        {
           name: 'CosmosCollOut'
           value: fnc.value.cosmosCollectionName
         }
@@ -176,11 +192,11 @@ resource functionConsumer 'Microsoft.Web/sites@2022-09-01' = [for fnc in items(c
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet-isolated'
+          value: 'dotnet'
         }
 
       ]
-      netFrameworkVersion: 'v7.0'
+      netFrameworkVersion: 'v6.0'
     }    
   }
 }]

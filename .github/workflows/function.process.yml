@@ -2,9 +2,6 @@ name: Deploy ProcessHL7Msg Azure Function
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'src/function/ProcessHL7Msg/**'
 
 env:
   DOTNET_VERSION: '7.0.x'

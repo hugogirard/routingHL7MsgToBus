@@ -2,9 +2,6 @@ name: Deploy Admin Azure Function
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'src/function/SubscriptionAdmin/**'
 
 env:
   DOTNET_VERSION: '7.0.x'

@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
 
 namespace HL7Sender.Service;
 

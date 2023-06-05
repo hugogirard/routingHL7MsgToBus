@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "function", "function", "{A7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessHL7Msg", "function\ProcessHL7Msg\ProcessHL7Msg.csproj", "{DF121DB7-5328-475B-B4AD-A7ED0965A3C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionAdmin", "function\SubscriptionAdmin\SubscriptionAdmin.csproj", "{7A49B326-631A-45DB-BE8C-D14B148EB566}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionAdmin", "function\SubscriptionAdmin\SubscriptionAdmin.csproj", "{7A49B326-631A-45DB-BE8C-D14B148EB566}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sender", "Sender", "{6707CC9E-32DB-4AB2-8D11-8087FD509C64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HL7Sender", "senderClient\Hl7Sender\HL7Sender\HL7Sender.csproj", "{D26973DD-A567-4F92-ADD8-B448F1226A54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HL7Sender", "senderClient\Hl7Sender\HL7Sender\HL7Sender.csproj", "{D26973DD-A567-4F92-ADD8-B448F1226A54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "function\Consumer\Consumer.csproj", "{F1D5B73E-C870-4DC7-9C4B-CF5E348DD97E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "function\Consumer\Consumer.csproj", "{C8194728-99E6-4B98-BB1F-5C9356B14ABF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,10 @@ Global
 		{D26973DD-A567-4F92-ADD8-B448F1226A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D26973DD-A567-4F92-ADD8-B448F1226A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D26973DD-A567-4F92-ADD8-B448F1226A54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1D5B73E-C870-4DC7-9C4B-CF5E348DD97E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1D5B73E-C870-4DC7-9C4B-CF5E348DD97E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1D5B73E-C870-4DC7-9C4B-CF5E348DD97E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1D5B73E-C870-4DC7-9C4B-CF5E348DD97E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8194728-99E6-4B98-BB1F-5C9356B14ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8194728-99E6-4B98-BB1F-5C9356B14ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8194728-99E6-4B98-BB1F-5C9356B14ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8194728-99E6-4B98-BB1F-5C9356B14ABF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,7 +45,7 @@ Global
 		{DF121DB7-5328-475B-B4AD-A7ED0965A3C3} = {A78500D2-D429-4F8B-B39E-A39D5A2FE2CB}
 		{7A49B326-631A-45DB-BE8C-D14B148EB566} = {A78500D2-D429-4F8B-B39E-A39D5A2FE2CB}
 		{D26973DD-A567-4F92-ADD8-B448F1226A54} = {6707CC9E-32DB-4AB2-8D11-8087FD509C64}
-		{F1D5B73E-C870-4DC7-9C4B-CF5E348DD97E} = {A78500D2-D429-4F8B-B39E-A39D5A2FE2CB}
+		{C8194728-99E6-4B98-BB1F-5C9356B14ABF} = {A78500D2-D429-4F8B-B39E-A39D5A2FE2CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E421727-B11F-4BB9-A3AB-058D0FC3E08E}
