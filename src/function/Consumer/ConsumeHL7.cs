@@ -24,7 +24,7 @@ namespace Consumer
 
         [FunctionName("ConsumeHl7")]
         public async Task Run([ServiceBusTrigger("integration", "%SubsName%", Connection = "ServiceBusCnxString")]ServiceBusReceivedMessage mySbMsg,
-                              [CosmosDB("hl7", "hl7", Connection = "CosmosDb")]IAsyncCollector<Transaction> transactions)           
+                              [CosmosDB("hl7", "%CosmosCollOut%", Connection = "CosmosDb")]IAsyncCollector<Transaction> transactions)           
         {
             try
             {
