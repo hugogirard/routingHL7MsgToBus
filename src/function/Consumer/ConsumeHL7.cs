@@ -46,7 +46,7 @@ namespace Consumer
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                // To be sure the msg is back in the queue since it runs in peelock
+                // To be sure the msg is back in the queue since it runs in peeklock
                 // https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-trigger?tabs=python-v2%2Cin-process%2Cextensionv5&pivots=programming-language-csharp#usage
                 throw new Exception("Internal server error");
             }
