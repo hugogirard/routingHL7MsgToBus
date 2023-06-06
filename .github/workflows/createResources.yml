@@ -37,7 +37,7 @@ jobs:
 
       - name: Save routing file App Configuration
         run: |
-          az appconfig kv import -s file --format json --label Contoso_HIS --content-type "application/json" --separator : --depth 2 --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --path ./bicep/modules/appconfiguration/routing.configuration.json --yes
+          az appconfig kv import -s file --format json --label Contoso_HIS --content-type "application/json" --separator : --depth 2 --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --path ./bicep/modules/appconfiguration/hl7.extraction.json --yes
           az appconfig kv import -s file --format json --label dev --content-type "application/json" --separator : --depth 2 --name ${{ steps.createResources.outputs.appConfigurationStoreName }} --path ./bicep/modules/appconfiguration/subscription.configuration.json --yes
 
       - uses: gliech/create-github-secret-action@v1

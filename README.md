@@ -25,6 +25,13 @@ The following diagram represent the architecture of this sample.  Keep in mind, 
 5- In this scenario you have two consumers with their own subscription and filter.  Each receive the message that match their filter.
 6 - Once the message retrieve it's saved to CosmosDB with the HL7 message and the message properties.
 
+## Routing
+
+The routing is based on configuration stored in Azure App Configuration.  The goal is to create extraction of specific segments and fields from the HL7 v2 message and add them as properties in the message without doing any code changes.
+
+Here you can find the default configuration used in this sample in the directory **bicep/modules/appconfiguration/hl7.extraction.json**
+
+
 # Prerequisites
 
 - Fork this GitHub repository
