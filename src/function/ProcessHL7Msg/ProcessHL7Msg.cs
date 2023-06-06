@@ -54,7 +54,7 @@ namespace Contoso
 
         }
 
-        [Function("GetRoutingConfiguration")]
+        [Function("GetHl7Configuration")]
         public async Task<HttpResponseData> GetRoutingConfig([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
             try
