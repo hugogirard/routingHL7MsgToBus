@@ -221,4 +221,41 @@ MSH_5 = 'CONTOSO_RECEIVE_A' AND
 MSH_9_1 = 'ADT'             AND 
 MSH_9_2 = 'A04'
 ```
-Here you can see you can create complex filtering, in this case the subscription called ConsumerA will accept only 
+Here you can see you can create complex filtering, in this case the subscription called ConsumerA will accept only ADT msg 01 to 04.
+
+Now to do the same to see the filter for the **ConsumerB**
+
+```sql
+MSH_3 = 'CONTOSO_SENDER_B'  AND 
+MSH_5 = 'CONTOSO_RECEIVE_B' AND 
+MSH_9_1 = 'ADT'             AND 
+MSH_9_2 = 'A04'
+```
+
+The consumerB will accept only ADT msg 04.
+
+**KEEP IN MIND** the message generated are only for demo purpose and doesn't represente real HL7 message.  The filter can seems off but the goal here it's only to show the concept of routing with Azure Service Bus and subscription.
+
+### Send message to the Azure function
+
+Now we can send message to the Azure Function that will process them and save them in the Azure Service Bus Topic.
+
+The console application will send 12 messages to the Azure Function and you will see the following output in the subscriptions.
+
+Based on the current filter 4 will matches the consumerA subscription and only 1 for the consumerB subscription.
+
+Here the list of msg with custom properties so you can understand the routing done at the subscription level.
+
+<img src='./images/msg1.png' />
+<img src='./images/msg2.png' />
+<img src='./images/msg3.png' />
+<img src='./images/msg4.png' />
+<img src='./images/msg5.png' />
+<img src='./images/msg6.png' />
+<img src='./images/msg7.png' />
+<img src='./images/msg8.png' />
+<img src='./images/msg9.png' />
+<img src='./images/msg10.png' />
+<img src='./images/msg11.png' />
+<img src='./images/msg12.png' />
+

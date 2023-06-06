@@ -62,6 +62,18 @@ namespace HL7Sender
                         {
                             Console.WriteLine($"Error sending msg: {response.StatusCode}");
                         }
+                        msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A05");
+                        response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine($"Error sending msg: {response.StatusCode}");
+                        }
+                        msg = HL7MsgGenerator.GenerateAdt(senders[y], receivers[y], "A06");
+                        response = await httpClient.PostAsync(_sendApiUrl, new StringContent(msg));
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine($"Error sending msg: {response.StatusCode}");
+                        }
                     }
 
                 }
