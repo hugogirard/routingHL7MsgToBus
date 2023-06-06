@@ -1,11 +1,18 @@
 using Azure.Identity;
 using Azure.Messaging.ServiceBus;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureFunctionsWorkerDefaults(builder => 
+    {
+        // This is a pre-release package do not use in production
+        // register appinsignt like is done in ASP.NET Core
+        builder.AddApplicationInsights()
+               .AddApplicationInsightsLogger();
+    })
     .ConfigureAppConfiguration(builder => 
     {
         string cnxString = Environment.GetEnvironmentVariable("AppConfigurationCnxString");
