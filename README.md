@@ -83,7 +83,7 @@ Here the default value of the configuration
         "Port": 12001
     }
 }
-
+```
 ## Subscription and rules
 
 Same concept here apply than the HL7 message extraction, in the above step we extract all the HL7 segments and fields that will be needed to create rule (filter) in the topic subscription.
@@ -161,3 +161,64 @@ Here the specific endpoints for All Azure Function
 | fnc-admin-{uniqueid} | https://{function-app-name}.azurewebsites.net/api/GetConfiguration?code={function-key} | Get the subscription configuration |
 | fnc-routing-{uniqueid} | https://{function-app-name}.azurewebsites.net/api/ProcessHL7Msg?code={function-key} | Process HL7 msg and save it in the bus |
 | fnc-routing-{uniqueid} | https://{function-app-name}.azurewebsites.net/api/GetHl7Configuration?code={function-key} | Get the HL7 segments fields configuration |
+| fnc-consumerA-{uniqueid} | N/A Service Bus Topic Trigger | Get the messsage in the subscription ConsumerA |
+| fnc-consumerB-{uniqueid} | N/A Service Bus Topic Trigger | Get the messsage in the subscription ConsumerB |
+
+# Configure the Hl7Sender console application
+
+Since this is a simulation and we don't receive HL7 message from a proxy, we need to simulate the sender.  To do so, we will use a console application that will send HL7 message to the Azure Function.
+
+This console app will help us call the function that manage the subscription and rules (filter) and this is what we what to execute first.
+
+Open HL7Sender in Visual Studio and open the **appsettings.json** file.  Here you need to update the following values
+
+| Name | Value |
+| ---- | ----- |
+| SendApiUrl | https://fnc-routing-{uniqueid}.azurewebsites.net/api/ProcessHL7Msg?code={function-key} |
+| TopicApiUrl | https://fnc-admin-{uniqueid}.azurewebsites.net/api/RecreateTopic?code={function-key} |
+| SubsApiUrl | https://fnc-admin-{uniqueid}.azurewebsites.net/api/ManageSubscription?code={function-key} |
+
+To retrieve the function URL go to the [Azure Portal](www.portal.azure.com) in the resource group called **rg-srvbus-routing**.  In this resource group you will find the 3 functions created in this sample.  Open each function and go to the **Functions** section.  Here you will find the URL and the function key in the top menu.
+
+<img src='./images/getFunctionUrl.png' />
+
+Now, you can run the console application and you will see the following output.
+
+<img src='./images/createSubs.png' />
+
+Enter the option **3** and press enter.
+
+Now, go to the **Azure Portal** and click on the Azure Service Bus and in the left menu click on **Topics**.  
+
+You will see one topic called **integration** and click on it.  In the left menu click on **Subscriptions**.
+
+You will see two subscriptions called **ConsumerA** and **ConsumerB**.  
+
+<img src='./images/portalsubs.png' />
+
+Click on **ConsumerA** and at the bottom you will see a filter called **RuleA** and click on it.
+
+<img src='./images/consumerAfilter.png' />
+
+```sql
+MSH_3 = 'CONTOSO_SENDER_A'  AND 
+MSH_5 = 'CONTOSO_RECEIVE_A' AND 
+MSH_9_1 = 'ADT'             AND 
+MSH_9_2 = 'A01' 
+OR 
+MSH_3 = 'CONTOSO_SENDER_A'  AND 
+MSH_5 = 'CONTOSO_RECEIVE_A' AND 
+MSH_9_1 = 'ADT'             AND 
+MSH_9_2 = 'A02' 
+OR 
+MSH_3 = 'CONTOSO_SENDER_A'  AND 
+MSH_5 = 'CONTOSO_RECEIVE_A' AND 
+MSH_9_1 = 'ADT'             AND 
+MSH_9_2 = 'A03' 
+OR 
+MSH_3 = 'CONTOSO_SENDER_A'  AND 
+MSH_5 = 'CONTOSO_RECEIVE_A' AND 
+MSH_9_1 = 'ADT'             AND 
+MSH_9_2 = 'A04'
+```
+Here you can see you can create complex filtering, in this case the subscription called ConsumerA will accept only 

@@ -1,0 +1,24 @@
+name: Upload subscription configuration
+on:
+  workflow_dispatch:
+
+jobs:
+  upload-subscription-configuration:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Save routing file App Configuration
+        run: |          
+          az appconfig kv import -s file --format json --label dev --content-type "application/json" --separator : --depth 2 --name ${{ secrets.CONFIGURATION_STORE_NAME }} --path ./bicep/modules/appconfiguration/subscription.configuration.json --yes
+
+
+                    
