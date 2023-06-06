@@ -12,26 +12,37 @@ In this scenario we will not simulate the proxy and just send message directly t
 
 Once the function receive the HL7 message it will read specific segments and fields from it.  Based on the [external configuration store pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/external-configuration-store)
 
-## Function Admin
+# Architecture
 
-The admin function is using the external configuration store to create the subscription.  The subscription will be created in the Azure Service Bus topic.
+The following diagram represent the architecture of this sample.  Keep in mind, we created a proxy to send the HL7 v2 message to the Azure Function.  In this sample we will not simulate the proxy and just send the message directly to the Azure Function.
 
-From there you can configure your filter for each subscription in your system.
+![Architecture](./diagram/architecture.png)
 
-Before using the admin function you need configure some appsettings.  This is the key-value you need to configure:
+1- The HIS send a HL7 v2 message to the Proxy (MLLP to HTTPS)
+2- The Proxy send the HL7 v2 message to the Azure Function (HTTPS)
+3- The Azure Function retrieve the routing configuration from Azure App Configuration
+4- The Azure Function read the HL7 v2 message and extract the segments and fields needed to be added in the [message properties](https://learn.microsoft.com/en-us/rest/api/servicebus/message-headers-and-properties#message-properties).  Those properties will be used to route the message to the right topic subscription.  Once all user defined properties are added to the message, the Azure Function send the message to the Service Bus Topic.
+5- In this scenario you have two consumers with their own subscription and filter.  Each receive the message that match their filter.
+6 - Once the message retrieve it's saved to CosmosDB with the HL7 message and the message properties.
+
+# Prerequisites
+
+- Fork this GitHub repository
+- Create Service Principal needed for [GitHub Actions](https://github.com/marketplace/actions/azure-login#configure-a-service-principal-with-a-secret)
+- Create GitHub Secrets
 
 | Name | Value |
 | ---- | ----- |
-| ServiceBusCnxString | The connection string of the Azure service bus with send rights |
-| ServiceBusTopicName | integration |
-| AppConfigurationCnxString | The configuration string of the app configuration |
+| AZURE_CREDENTIALS | Service Principal created above |
+| AZURE_SUBSCRIPTION | Azure Subscription Id |
+| PA_TOKEN | Personal Access Token ([PAT](https://github.com/marketplace/actions/create-github-secret-action#pa_token)) to access the GitHub repository |
 
-## Function Routing
 
-The routing function receive the HL7 v2 messages from the HIS system or by a proxy doing MLLP to HTTPS.  You need to configure some appsettings value.  This is the key-value you need to configure:
 
-| Name | Value |
-| ---- | ----- |
-| ServiceBusCnxString | The connection string of the Azure service bus with send rights |
-| ServiceBusTopicName | integration |
-| AppConfigurationCnxString | The configuration string of the app configuration |
+# Create Azure Resources
+
+Now, is time to create the Azure Resources, to do so just run the GitHub Actions called **Create Azure Resources**.
+
+# Deploy ProcessHL7Msg Azure Function
+
+Once the previous GitHub action executed succesfully
