@@ -275,3 +275,8 @@ Open the first one called consumerA, you should see 4 documents there.
 
 Do the same for the collection called consumerB, you should see 1 document there.
 
+# Application Insight
+
+In this demo both function are using Application Insight, this allow us to see the Application Map.
+
+<img src='./images/appmap.png' />
