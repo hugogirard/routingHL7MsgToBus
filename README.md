@@ -259,3 +259,19 @@ Here the list of msg with custom properties so you can understand the routing do
 <img src='./images/msg11.png' />
 <img src='./images/msg12.png' />
 
+### Validate the consumers function are working
+
+After a couple of seconds, all message in the topics should be processed by the consumers functions.
+
+Go to the CosmosDB created in this GitHub repository and click in the **Data Explorer**.
+
+You should see two collections below the HL7 database
+
+<img src='./images/cosmosdb.png' />
+
+Open the first one called consumerA, you should see 4 documents there.
+
+<img src='./images/collectiona.png' />
+
+Do the same for the collection called consumerB, you should see 1 document there.
+
