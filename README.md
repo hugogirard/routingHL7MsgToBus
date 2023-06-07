@@ -1,3 +1,18 @@
+# Table of Contents
+- [Introduction](#introduction)
+- [Architecture](#architecture)
+  - [HIS](#his)
+  - [Ops Team](#ops-team)
+  - [Azure App Configuration](#azure-app-configuration)
+  - [HL7 v2 Message extraction](#hl7-v2-message-extraction)
+  - [Subscription and rules](#subscription-and-rules)
+- [Prerequisites](#prerequisites)
+- [Create the Azure Resources](#create-the-azure-resources)
+- [Deploy the Azure Function](#deploy-the-azure-function)
+  - [Function Endpoints](#function-endpoints)
+- [Configure the Hl7Sender console application](#configure-the-hl7sender-console-application)
+- [Application Insights](#application-insight)
+
 # Introduction
 
 This GitHub repository show how to create routing in Azure Service Bus when receiving HL7 v2 messages.
@@ -280,3 +295,66 @@ Do the same for the collection called consumerB, you should see 1 document there
 In this demo both function are using Application Insight, this allow us to see the Application Map.
 
 <img src='./images/appmap.png' />
+
+Now, sometimes you want to get all the end-to-end tracing of a particular operation.
+
+First thing to do is to go to your Application Insights instance and in the left menu click on **Logs**.
+
+Run this following query as an example
+
+```sql
+traces 
+| where operation_Name == 'ProcessHL7Msg'
+| project operation_Id, timestamp, tostring(customDimensions.EventName), tostring(customDimensions.prop__status)
+| take 100
+| order by timestamp asc
+```
+
+This will return the last 100 traces for the function called **ProcessHL7Msg**.
+
+<img src='./images/appi.png' />
+
+From there you can see when a function started and when it completed and if it failed or not.  The operation_id is the same for one execution.
+
+Now, if you want to find function that failed you can run this query
+
+```sql
+traces 
+| where operation_Name == 'ProcessHL7Msg'
+| where tostring(customDimensions.prop__status) == 'Failed'
+| project operation_Id, timestamp, tostring(customDimensions.EventName), tostring(customDimensions.prop__status)
+| take 100
+| order by timestamp asc
+```
+
+<img src='./images/failed.png' />
+
+Take note of the operation_id, now you want to find the end-to-end trace.
+
+Now goes in the menu Transaction search and with the filter at the top select the **Operation Id** field and paste the operation_id from the previous Kusto query.
+
+<img src='./images/transaction_search.png' />
+
+You will see the exception at the bottom, you can now click on it and see the exception details.
+
+Now if you want to see a transaction end to end with the time of execution between all of them you can run this Kusto query.
+
+```sql
+traces 
+| where operation_Name == 'ProcessHL7Msg'
+| where tostring(customDimensions.prop__status) != 'Failed'
+| project operation_Id, timestamp, tostring(customDimensions.EventName), tostring(customDimensions.prop__status)
+| take 100
+| order by timestamp asc
+```
+
+Copy the value of the operation_id for one of the transaction and go back to the Transaction search and paste the value in the filter.
+
+Click on the REQUEST details for the ProcessHL7Msg function call.  This is where the transaction begin.
+
+<img src='./images/request.png' />
+
+Click on the details and you will see the end-to-end transaction with the total duration end to end and for each operation.
+
+<img src='./images/stack.png' />
+
