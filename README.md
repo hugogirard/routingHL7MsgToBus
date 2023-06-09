@@ -35,18 +35,18 @@ The following diagram represents the architecture.  The HIS and proxy in our sam
 
 ##### HIS
 
-1- The HIS send an HL7 v2 message to the Proxy (MLLP to HTTPS)
-2- The Proxy sends the HL7 v2 message to the Azure Function (HTTPS)
-3- The Azure Function retrieve the routing configuration from Azure App Configuration
-4- The Azure Function read the HL7 v2 message and extract the segments and fields needed to be added in the [message properties](https://learn.microsoft.com/en-us/rest/api/servicebus/message-headers-and-properties#message-properties).  Those properties will be used to route the message to the right topic subscription.  Once all user defined properties are added to the message, the Azure Function sends the message to the Service Bus Topic.
-5- In this scenario you have two consumers with their own subscription and filter.  Each receives the message that matches their filter.
-6 - Once the message retrieve it's saved to CosmosDB with the HL7 message and the message properties.
+1. The HIS send an HL7 v2 message to the Proxy (MLLP to HTTPS)
+2. The Proxy sends the HL7 v2 message to the Azure Function (HTTPS)
+3. The Azure Function retrieve the routing configuration from Azure App Configuration
+4. The Azure Function read the HL7 v2 message and extract the segments and fields needed to be added in the [message properties](https://learn.microsoft.com/en-us/rest/api/servicebus/message-headers-and-properties#message-properties).  Those properties will be used to route the message to the right topic subscription.  Once all user defined properties are added to the message, the Azure Function sends the message to the Service Bus Topic.
+5. In this scenario you have two consumers with their own subscription and filter.  Each receives the message that matches their filter.
+6. Once the message retrieve it's saved to CosmosDB with the HL7 message and the message properties.
 
 ##### Ops Team
 
-1a- The Ops Team can call the Subscription Admin Function to create new subscriptions and rules (filter) to it.
-2a- The function retrieves the configuration related to subscription and rules from Azure App Configuration.
-3a- The function create the subscription and rules in the Service Bus Topic.
+1a. The Ops Team can call the Subscription Admin Function to create new subscriptions and rules (filter) to it.
+2a. The function retrieves the configuration related to subscription and rules from Azure App Configuration.
+3a. The function create the subscription and rules in the Service Bus Topic.
 
 ## Azure App Configuration
 
